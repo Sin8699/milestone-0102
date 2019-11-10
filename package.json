@@ -1,0 +1,17 @@
+{
+  "name": "1760393-1760434-milestone-01",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "knex": "^0.20.1",
+    "postgresql": "0.0.1",
+    "restify": "^8.4.0"
+  },
+  "devDependencies": {},
+  "description": ""
+}
