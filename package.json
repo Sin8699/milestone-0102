@@ -12,7 +12,8 @@
     "knex": "^0.20.1",
     "pg": "^7.12.1",
     "postgresql": "0.0.1",
-    "restify": "^8.4.0"
+    "restify": "^8.4.0",
+    "restify-router": "^0.5.1"
   },
   "devDependencies": {},
   "description": ""
