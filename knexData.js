@@ -1,11 +1,11 @@
 var knex = require("knex")({
   client: "pg",
   connection: {
-    host: "ec2-54-83-9-169.compute-1.amazonaws.com",
-    user: "vkrpsybninavbh",
+    host: "ec2-174-129-33-167.compute-1.amazonaws.com",
+    user: "ftbskghtdjinwq",
     password:
-      "bf07a712499c29f09cf7d411b8c60c3d694a7a2f03119849f98184a27d599ac3",
-    database: "dd1tqg3tu3ugco",
+      "fe0f5f08407cd2aa2149a7c8b1dcda42efe3a37ecf011758d585e0e835a6354b",
+    database: "d3ju9q61kpb0r8",
     ssl: true
   }
 });
