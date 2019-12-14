@@ -1,14 +1,17 @@
 const restify = require("restify");
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
-var cors = require('cors');
-app.use(cors({
-  'allowedHeaders': ['sessionId', 'Content-Type'],
-  'exposedHeaders': ['sessionId'],
-  'origin': '*',
-  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  'preflightContinue': false
-}));
+
+var corsMiddleware = require('restify-cors-middleware');
+
+var cors = corsMiddleware({
+  preflightMaxAge: 5,
+  origins: ['*']
+});
+
+server.pre(cors.preflight);
+server.use(cors.actual);
+
 
 const employeesRouter = require('./router/employees').default;
 //const recruitmentsRouter = require('./router/recruitments').default;
