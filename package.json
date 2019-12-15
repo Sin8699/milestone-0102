@@ -9,12 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.1",
     "pg": "^7.12.1",
     "postgresql": "0.0.1",
     "restify": "^8.4.0",
     "restify-cors-middleware": "^1.1.1",
+    "restify-jwt-community": "^1.1.2",
     "restify-router": "^0.5.1"
   },
   "devDependencies": {},

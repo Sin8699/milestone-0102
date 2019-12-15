@@ -1,9 +1,12 @@
 const restify = require("restify");
+const rJWT = require("restify-jwt-community");
+const corsMiddleware = require("restify-cors-middleware");
+const db = require("dotenv").config();
+
 const server = restify.createServer();
 server.use(restify.plugins.bodyParser());
-const corsMiddleware = require("restify-cors-middleware");
-const {login,refreshToken} = require("./router/login.js");
-const {isAdmin} =require("./helper/isAdmin");
+
+const { login, refreshToken } = require("./router/login.js");
 
 const employeesRouter = require("./router/employees").default;
 //const recruitmentsRouter = require('./router/recruitments').default;
@@ -25,9 +28,9 @@ const invoicesDetailRoomRouter = require("./router/invoices_detail_room")
 
 const cors = corsMiddleware({
   preflightMaxAge: 5,
-  origins: ["*"],
-  allowHeaders: ["API-Token"],
-  exposeHeaders: ["API-Token-Expiry"]
+  origins: ["https://milestone-0102.herokuapp.com/","http://localhost:1299/"],
+  allowHeaders: ["Authorization"],
+  exposeHeaders: ["Authorization"]
 });
 
 server.pre(cors.preflight);
@@ -43,8 +46,11 @@ server.post("/login", login);
 server.post("/refresh-token", refreshToken);
 
 // xác thực tài khoản admin
-server.use(isAdmin);
+server.use(rJWT({ secret:  process.env.ACCESS_TOKEN_SECRET}).unless({
+  path: ['/login','/refresh-token']
+}));
 
+//header:Authorization ==> jwt token
 //api db
 employeesRouter.applyRoutes(server, "/employees");
 worktimesRouter.applyRoutes(server, "/worktimes");
@@ -62,7 +68,6 @@ roomsRouter.applyRoutes(server, "/rooms");
 servicesRouter.applyRoutes(server, "/services");
 invoicesRoomRouter.applyRoutes(server, "/invoices-room");
 invoicesDetailRoomRouter.applyRoutes(server, "/invoices-detail-room");
-
 
 server.listen(process.env.PORT || 1299, () => {
   console.log(`${server.name} is listen at ${server.url}`);

@@ -1,4 +1,5 @@
 const jwtHelper = require("../helper/jwt.helper");
+const db=require("dotenv").config();
 
 let tokenList = {};
 // Thời gian sống của token
@@ -12,15 +13,6 @@ const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET || "refresh-token-se
 
 const login = async (req, res) => {
   try {
-    //debug(`Đang giả lập hành động đăng nhập thành công với Email: ${req.body.email} và Password: ${req.body.password}`);
-    // Mình sẽ comment mô tả lại một số bước khi làm thực tế cho các bạn như sau nhé:
-    // - Đầu tiên Kiểm tra xem email người dùng đã tồn tại trong hệ thống hay chưa?
-    // - Nếu chưa tồn tại thì reject: User not found.
-    // - Nếu tồn tại user thì sẽ lấy password mà user truyền lên, băm ra và so sánh với mật khẩu của user lưu trong Database
-    // - Nếu password sai thì reject: Password is incorrect.
-    // - Nếu password đúng thì chúng ta bắt đầu thực hiện tạo mã JWT và gửi về cho người dùng.
-    // Trong ví dụ demo này mình sẽ coi như tất cả các bước xác thực ở trên đều ok, mình chỉ xử lý phần JWT trở về sau thôi nhé:
-    //debug(`Thực hiện fake thông tin user...`);
     const userFakeData = {
       _id: "1234-5678-910JQK-sinjun",
       name: "Sin Jun",
@@ -33,10 +25,12 @@ const login = async (req, res) => {
     // Lưu lại 2 mã access & Refresh token, với key chính là cái refreshToken để đảm bảo unique và không sợ hacker sửa đổi dữ liệu truyền lên.
     // lưu ý trong dự án thực tế, nên lưu chỗ khác, có thể lưu vào Redis hoặc DB
     tokenList[refreshToken] = {accessToken, refreshToken};
-    
-    return res.status(200).json({accessToken, refreshToken});
+
+    res.status(200);
+    return res.send({accessToken, refreshToken});
   } catch (error) {
-    return res.status(500).json(error);
+    res.status(500);
+    return res.send(error);
   }
 }
 
