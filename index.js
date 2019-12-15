@@ -47,7 +47,7 @@ server.post("/refresh-token", refreshToken);
 
 // xác thực tài khoản admin
 server.use(rJWT({ secret:  process.env.ACCESS_TOKEN_SECRET}).unless({
-  path: ['/login','/refresh-token']
+  path: ['/login','/refresh-token','/']
 }));
 
 //header:Authorization ==> jwt token
