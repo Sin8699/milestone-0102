@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.1",
     "pg": "^7.12.1",
     "postgresql": "0.0.1",
